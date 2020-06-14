@@ -1,0 +1,54 @@
+{
+    "name": "konectdigital/glovo-api",
+    "description": "Create, retrieve and track your Glovo orders trough their Business API",
+    "keywords": [
+        "konectdigital",
+        "glovo-api"
+    ],
+    "homepage": "https://github.com/konectdigital/glovo-api",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Shadrack Nicholas",
+            "email": "shadrac@konect.co.ke",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "illuminate/support": "^6.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0",
+        "phpunit/phpunit": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Konectdigital\\GlovoApi\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Konectdigital\\GlovoApi\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Konectdigital\\GlovoApi\\GlovoApiServiceProvider"
+            ],
+            "aliases": {
+                "GlovoApi": "Konectdigital\\GlovoApi\\GlovoApiFacade"
+            }
+        }
+    }
+}
