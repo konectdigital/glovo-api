@@ -44,13 +44,13 @@ Simple usage looks like:
 
 include 'vendor/autoload.php';
 
-use Glovo\Api;
-use Glovo\Model\Order;
-use Glovo\Model\Address;
+use GlovoApi;
+use Konectdigital\GlovoApi\Model\Order;
+use Konectdigital\GlovoApi\Model\Address;
 
 
 // get credentials on https://business.glovoapp.com/dashboard/profile or https://business.testglovo.com/dashboard/profile
-$api = new Api( '125238463972712', '081f8c9680d457a088b4413a62ddf84c' );
+$api = new GlovoApi( '125238463972712', '081f8c9680d457a088b4413a62ddf84c' );
 $api->sandbox_mode( true );
 
 $sourceDir = new Address( Address::TYPE_PICKUP, -34.919861, -57.919027, "Diag. 73 1234", "1st floor" );
@@ -61,13 +61,19 @@ $order->setDescription( "1 big hammer" );
 $order->setAddresses( [$sourceDir, $destDir] );
 //$order->setScheduleTime( ( new \DateTime( '+1 hour' ) )->setTime( 19, 0 ) );
 
-$orderEstimate = $api->estimateOrderPrice( $order );
+try {
+    $orderEstimate = $api->estimateOrderPrice( $order );
+    echo "Estimate: {$orderEstimate['total']['amount']}{$orderEstimate['total']['currency']} \n";
+} catch(Exception $e){
+    echo $e->getMessage();
+}
 
-echo "Estimate: {$orderEstimate['total']['amount']}{$orderEstimate['total']['currency']} \n";
-
-$orderInfo = $api->createOrder( $order );
-
-echo "Order created, ID: {$orderInfo['id']}, state: {$orderInfo['state']} \n";
+try {
+    $orderInfo = $api->createOrder( $order );
+    echo "Order created, ID: {$orderInfo['id']}, state: {$orderInfo['state']} \n";
+} catch(Exception $e){
+    echo $e->getMessage();
+}
 ```
 See full example in [example.php](example.php)
 
